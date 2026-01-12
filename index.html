@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dieter Vasquez — Ceramics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --bg: #ffffff;
+            --border: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .artist-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            position: relative;
+            transition: color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .nav-links li:nth-child(1) a { animation-delay: 0.4s; }
+        .nav-links li:nth-child(2) a { animation-delay: 0.5s; }
+        .nav-links li:nth-child(3) a { animation-delay: 0.6s; }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 120px;
+            padding: 0 3rem 4rem;
+        }
+
+        section {
+            max-width: 1600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.7s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Work Section - Masonry Grid */
+        #work {
+            display: block;
+        }
+
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 2rem;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            padding: 0.75rem 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .masonry-item:hover .image-caption {
+            opacity: 1;
+        }
+
+        /* About Section */
+        #about {
+            display: none;
+            max-width: 700px;
+            padding: 4rem 0;
+        }
+
+        #about h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.03em;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        #contact {
+            display: none;
+            max-width: 600px;
+            padding: 4rem 0;
+        }
+
+        #contact h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.03em;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+
+        .contact-info a {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            border-bottom-color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+
+            main {
+                margin-top: 140px;
+                padding: 0 2rem 3rem;
+            }
+
+            .masonry-grid {
+                column-count: 1;
+                column-gap: 0;
+            }
+
+            .masonry-item {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Smooth section transitions */
+        .section-transition {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section-exit {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="artist-name">Dieter Vasquez</div>
+            <ul class="nav-links">
+                <li><a href="#work" data-section="work">work</a></li>
+                <li><a href="#about" data-section="about">about</a></li>
+                <li><a href="#contact" data-section="contact">contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="work">
+            <div class="masonry-grid">
+                <!-- Placeholder images - replace with your ceramics photos -->
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=800&q=80" alt="Ceramic vessel">
+                    <div class="image-caption">Stoneware vessel, 2024</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80" alt="Ceramic bowl">
+                    <div class="image-caption">Porcelain bowl, 2024</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80" alt="Ceramic sculpture">
+                    <div class="image-caption">Sculptural form, 2023</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=800&q=80" alt="Ceramic vase">
+                    <div class="image-caption">Thrown vase, 2024</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1610701596008-5f8a9f79e5ab?w=800&q=80" alt="Ceramic plate">
+                    <div class="image-caption">Dinner plate series, 2023</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1601925577268-6e1d1575e6d1?w=800&q=80" alt="Ceramic cup">
+                    <div class="image-caption">Yunomi tea cup, 2024</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80" alt="Ceramic installation">
+                    <div class="image-caption">Installation view, 2023</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80" alt="Ceramic detail">
+                    <div class="image-caption">Glaze detail, 2024</div>
+                </div>
+                <div class="masonry-item">
+                    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=80" alt="Ceramic piece">
+                    <div class="image-caption">Functional vessel, 2023</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                I create ceramic works that explore the intersection of form and function, 
+                drawing inspiration from natural systems and traditional craft techniques. 
+                My practice focuses on hand-built and wheel-thrown pieces that emphasize 
+                materiality and the tactile qualities of clay.
+            </p>
+            <p>
+                Based in Claremont, California, I work primarily with stoneware and porcelain, 
+                developing glazes that respond to the unique characteristics of each piece. 
+                My work has been exhibited in galleries throughout Southern California.
+            </p>
+            <p>
+                I hold an MMLIS from USC and currently serve as Social Sciences Librarian 
+                at The Claremont Colleges, where I integrate my ceramic practice with my 
+                professional work in information science and visual culture.
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <p>For inquiries about available work, commissions, or exhibitions:</p>
+                <p><a href="mailto:your.email@example.com">your.email@example.com</a></p>
+                <p><a href="https://instagram.com/yourusername" target="_blank">Instagram</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth section navigation
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('main section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Hide all sections with exit animation
+                sections.forEach(section => {
+                    if (section.id !== targetSection) {
+                        section.style.display = 'none';
+                    }
+                });
+                
+                // Show target section with entrance animation
+                const target = document.getElementById(targetSection);
+                target.style.display = 'block';
+                target.classList.remove('section-transition');
+                void target.offsetWidth; // Trigger reflow
+                target.classList.add('section-transition');
+
+                // Update active nav state
+                navLinks.forEach(l => l.style.color = '');
+                link.style.color = 'var(--text-primary)';
+            });
+        });
+
+        // Staggered image load animation
+        const masonryItems = document.querySelectorAll('.masonry-item');
+        masonryItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.animation = `fadeInUp 0.6s ease-out ${0.8 + (index * 0.05)}s forwards`;
+        });
+    </script>
+</body>
+</html>
