@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dieter Mackenbach</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --bg: #ffffff;
+            --border: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .artist-name {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 120px;
+            padding: 0 3rem 4rem;
+        }
+
+        section {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        /* Work Section - Single Large Image */
+        #work {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .work-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .work-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-caption {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            text-align: center;
+        }
+
+        /* About Section */
+        #about {
+            max-width: 700px;
+            padding: 4rem 0;
+        }
+
+        #about h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.03em;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        #contact {
+            max-width: 600px;
+            padding: 4rem 0;
+        }
+
+        #contact h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.03em;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+
+        .contact-info a {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            border-bottom-color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+
+            main {
+                margin-top: 140px;
+                padding: 0 2rem 3rem;
+            }
+
+            .work-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="artist-name">Dieter Mackenbach</div>
+            <ul class="nav-links">
+                <li><a href="#work" data-section="work" class="active">work</a></li>
+                <li><a href="#about" data-section="about">bio</a></li>
+                <li><a href="#contact" data-section="contact">contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="work" class="active">
+            <div class="work-container">
+                <img src="IMG_1854.jpeg" alt="fuels">
+                <div class="image-caption">laurel sumac, porcelain, pigments, 2025</div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>BIO</h2>
+            <p>
+                Dieter Mackenbach (b. 1991) lives in Claremont, CA. 
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <p>For inquiries about available work, commissions, or exhibitions:</p>
+                <p><a href="mailto:dmackenbach@gmail.com">dmackenbach@gmail.com</a></p>
+                <p><a href="https://instagram.com/yourusername" target="_blank">Instagram</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth section navigation
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('main section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Remove active class from all sections and links
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                navLinks.forEach(l => {
+                    l.classList.remove('active');
+                });
+                
+                // Add active class to target section and link
+                document.getElementById(targetSection).classList.add('active');
+                link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
