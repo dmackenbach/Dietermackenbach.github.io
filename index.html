@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dieter Mackenbach</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
         * {
             margin: 0;
@@ -38,18 +36,6 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .nav-container {
@@ -66,14 +52,6 @@
             font-size: 1.5rem;
             font-weight: 300;
             letter-spacing: 0.05em;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.3s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
         }
 
         .nav-links {
@@ -90,13 +68,7 @@
             text-transform: lowercase;
             position: relative;
             transition: color 0.3s ease;
-            opacity: 0;
-            animation: fadeIn 0.6s ease-out forwards;
         }
-
-        .nav-links li:nth-child(1) a { animation-delay: 0.4s; }
-        .nav-links li:nth-child(2) a { animation-delay: 0.5s; }
-        .nav-links li:nth-child(3) a { animation-delay: 0.6s; }
 
         .nav-links a::after {
             content: '';
@@ -117,6 +89,10 @@
             width: 100%;
         }
 
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
         /* Main Content */
         main {
             margin-top: 120px;
@@ -126,66 +102,42 @@
         section {
             max-width: 1600px;
             margin: 0 auto;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.7s forwards;
+            display: none;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Work Section - Masonry Grid */
-        #work {
+        section.active {
             display: block;
         }
 
-        .masonry-grid {
-            column-count: 3;
-            column-gap: 2rem;
+        /* Work Section - Single Large Image */
+        #work {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
         }
 
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+        .work-container {
+            max-width: 1200px;
+            width: 100%;
         }
 
-        .masonry-item img {
+        .work-container img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .masonry-item:hover img {
-            transform: scale(1.02);
+            margin-bottom: 1.5rem;
         }
 
         .image-caption {
-            padding: 0.75rem 0;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             letter-spacing: 0.03em;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .masonry-item:hover .image-caption {
-            opacity: 1;
+            text-align: center;
         }
 
         /* About Section */
         #about {
-            display: none;
             max-width: 700px;
             padding: 4rem 0;
         }
@@ -207,13 +159,12 @@
 
         /* Contact Section */
         #contact {
-            display: none;
             max-width: 600px;
             padding: 4rem 0;
         }
 
         #contact h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 2rem;
             font-weight: 300;
             margin-bottom: 2rem;
@@ -237,12 +188,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1.5rem 2rem;
@@ -259,29 +204,8 @@
                 padding: 0 2rem 3rem;
             }
 
-            .masonry-grid {
-                column-count: 1;
-                column-gap: 0;
-            }
-
-            .masonry-item {
-                margin-bottom: 1.5rem;
-            }
-        }
-
-        /* Smooth section transitions */
-        .section-transition {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .section-exit {
-            animation: fadeOut 0.3s ease-out;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateY(-20px);
+            .work-container {
+                max-width: 100%;
             }
         }
     </style>
@@ -291,21 +215,18 @@
         <div class="nav-container">
             <div class="artist-name">Dieter Mackenbach</div>
             <ul class="nav-links">
-                <li><a href="#work" data-section="work">work</a></li>
-                <li><a href="#about" data-section="about">about</a></li>
+                <li><a href="#work" data-section="work" class="active">work</a></li>
+                <li><a href="#about" data-section="about">bio</a></li>
                 <li><a href="#contact" data-section="contact">contact</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
-        <section id="work">
-            <div class="masonry-grid">
-                <!-- Placeholder images - replace with your ceramics photos -->
-                <div class="masonry-item">
-                    <img src="IMG_1854.jpeg" alt="fuels">
-                    <div class="image-caption">laurel sumac, porcelain, pigments, 2025</div>
-                </div>
+        <section id="work" class="active">
+            <div class="work-container">
+                <img src="IMG_1854.jpeg" alt="fuels">
+                <div class="image-caption">laurel sumac, porcelain, pigments, 2025</div>
             </div>
         </section>
 
@@ -320,39 +241,35 @@
             <h2>Contact</h2>
             <div class="contact-info">
                 <p>For inquiries about available work, commissions, or exhibitions:</p>
-                <p><a href="dmackenbach@gmail.com">your.email@example.com</a></p>
+                <p><a href="mailto:dmackenbach@gmail.com">dmackenbach@gmail.com</a></p>
                 <p><a href="https://instagram.com/yourusername" target="_blank">Instagram</a></p>
             </div>
         </section>
     </main>
 
-<script>
-    // Smooth section navigation
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const sections = document.querySelectorAll('main section');
+    <script>
+        // Smooth section navigation
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('main section');
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetSection = link.getAttribute('data-section');
-            
-            // Hide all sections
-            sections.forEach(section => {
-                section.style.display = 'none';
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Remove active class from all sections and links
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                navLinks.forEach(l => {
+                    l.classList.remove('active');
+                });
+                
+                // Add active class to target section and link
+                document.getElementById(targetSection).classList.add('active');
+                link.classList.add('active');
             });
-            
-            // Show target section
-            const target = document.getElementById(targetSection);
-            target.style.display = 'block';
-            
-            // Update active nav state
-            navLinks.forEach(l => l.style.color = '');
-            link.style.color = 'var(--text-primary)';
         });
-    });
-
-    // Make sure work section is visible on load
-    document.getElementById('work').style.display = 'block';
-</script>
+    </script>
 </body>
 </html>
