@@ -129,12 +129,19 @@
             margin-bottom: 3rem;
         }
 
-        .image-caption {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.03em;
-            text-align: center;
-        }
+.image-caption {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.work-container:hover .image-caption {
+    opacity: 1;
+}
 
         /* BIO Section */
         #BIO {
